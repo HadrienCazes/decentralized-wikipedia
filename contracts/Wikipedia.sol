@@ -10,7 +10,7 @@ contract Wikipedia {
 
   uint[] public ids;
   mapping (uint => string[]) public historicalArticlesContent;
-  mapping (uint => Article) public articlesById;
+  mapping (uint => Article) articlesById;
   mapping (address => uint[]) userOwningArticles;
 
   constructor() public {
@@ -29,14 +29,14 @@ contract Wikipedia {
   }
 
   function createArticle(string memory _content) public {
-    index = articlesById.push(Article(_content)) - 1;
+    uint index = ids.length + 1;
     ids.push(index);
     userOwningArticles[msg.sender].push(index);
-    historicalArticlesContent[_id].push(articlesById[index].content);
+    historicalArticlesContent[index].push(articlesById[index].content);
     emit NewArticle(_content);
   }
 
-  function readArticleById(uint _id) public views returns (string) {
+  function readArticleById(uint _id) public view returns (string memory) {
     return articlesById[_id].content;
   }
 
@@ -44,6 +44,4 @@ contract Wikipedia {
     articlesById[_id].content = _newContent;
     historicalArticlesContent[_id].push(articlesById[_id].content);
   }
-
-
 }
