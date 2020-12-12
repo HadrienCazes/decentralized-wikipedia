@@ -6,6 +6,7 @@ import styles from './App.module.css'
 import MediumEditor from 'medium-editor'
 import 'medium-editor/dist/css/medium-editor.css'
 import 'medium-editor/dist/css/themes/default.css'
+import ContractInterface from './build/contracts/Wikipedia.json'
 
 const NewArticle = () => {
   const [editor, setEditor] = useState(null)
