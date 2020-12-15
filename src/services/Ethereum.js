@@ -1,4 +1,5 @@
 import Web3 from 'web3'
+import store from '../store'
 import ContractInterface from '../build/contracts/Wikipedia.json'
 import { connectEthereum } from '../store/reducers/root'
 
@@ -21,4 +22,19 @@ const connect = async dispatch => {
   }
 }
 
-export { connect }
+const createArticle = (content) => async dispatch => {
+  if (content != null) {
+    const { contract } = store.getState();
+    await contract.methods.createArticle(content.toString()).send();
+  }
+}
+
+const getArticle = (id) => async dispatch => {
+  if (id != null && id >= 0) {
+    const { contract } = store.getState();
+    await contract.methods.articleContent(id.toInteger()).call();
+  }
+}
+
+
+export { connect , createArticle}

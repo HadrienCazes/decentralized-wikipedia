@@ -6,20 +6,30 @@ import styles from './App.module.css'
 import MediumEditor from 'medium-editor'
 import 'medium-editor/dist/css/medium-editor.css'
 import 'medium-editor/dist/css/themes/default.css'
-import ContractInterface from './build/contracts/Wikipedia.json'
 
 const NewArticle = () => {
-  const [editor, setEditor] = useState(null)
-  useEffect(() => {
-    setEditor(new MediumEditor(`.${styles.editable}`))
-  }, [setEditor])
+    const [editor, setEditor] = useState('')
+    useEffect(() => {
+      setEditor(new MediumEditor(`.${styles.editable}`))
+    }, [setEditor])
+
+  const handleChange = (event) => {
+    setEditor(event.target.value);
+  }
+
+  const dispatch = useDispatch();
+
+  const createArticle = () => {
+    dispatch(Ethereum.createArticle(editor));
+  }
+
   return (
     <form>
       <div className={styles.subTitle}>New article</div>
       <div className={styles.mediumWrapper}>
-        <textarea className={styles.editable} />
+        <textarea className={styles.editable} value={editor} onChange={handleChange} />
       </div>
-      <input type="submit" value="Submit" />
+      <input type="submit" value="Submit" onClick={createArticle}/>
     </form>
   )
 }
@@ -71,6 +81,7 @@ const App = () => {
         <Route>
           <NotFound />
         </Route>
+
       </Switch>
     </div>
   )
