@@ -1,4 +1,5 @@
 # Decentralized Wikipedia
+## Hadrien Cazes, Soumahoro Kady
 
 Welcome to the DAAR project. The idea will be to implement a complete Wikipedia
 in a decentralized way, on Ethereum. This will have cool side effects, like not
